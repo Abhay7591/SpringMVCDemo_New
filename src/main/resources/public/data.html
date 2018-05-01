@@ -1,0 +1,62 @@
+
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function fetchData()  {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/employee/list",
+                dataType: "JSON",
+                success: function (data) {
+                    var Employee=data;
+                    $(Employee).each(function () {
+                        var row=$(this)[0];
+                        var id = row['empId'];
+                        var name = row['empName'];
+                        var price = row['empAddress'];
+                        console.log("hello"+row['empId']+row['empName']+row['empAddress']);
+
+                        $('<tr><td>' + id + '</td><td>' +
+                            name + '</td><td>' + price + '</td><td>'
+                        ).appendTo('#employee');
+                    });
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    </script>
+
+
+
+
+</head>
+<body>
+
+<button id="btnfeatch" onclick="fetchData()">Load Data</button>
+<table border='1' id="employee">
+    <!-- Make a Header Row -->
+
+    <tr>
+        <td><b>EMP Id</b></td>
+        <td><b>Name</b></td>
+        <td><b>Address</b></td>
+
+    </tr>
+</table>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
